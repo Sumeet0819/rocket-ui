@@ -1,0 +1,114 @@
+/* Layout */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.container {
+    width: 100%;
+    min-height: 40vh;
+    display: flex;
+    flex-direction: column;
+    /* Alignment now controlled via inline style in React */
+    /* bgColor is now controlled via inline style in React */
+    perspective: 1000px;
+    overflow: hidden;
+    position: relative;
+    padding: 2rem;
+}
+
+.word {
+    display: flex;
+    align-items: flex-start;
+}
+
+.space {
+    width: 4rem;
+    /* Width of space between words */
+}
+
+.flow-text {
+    font-size: 8rem;
+    font-family: 'Hardbop', 'Impact', 'Arial Narrow', sans-serif;
+    color: white;
+    font-weight: 900;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    line-height: 0.8;
+    z-index: 2;
+    letter-spacing: 2px;
+    /* Tighter for that condensed look */
+}
+
+.char {
+    display: inline-block;
+    transform-origin: top;
+    position: relative;
+    padding: 0 0.2rem;
+}
+
+/* The "Long Shadow" effect from the image */
+.char::before {
+    content: attr(data-char);
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    z-index: -1;
+    color: var(--shadow-color, #a34b22);
+    /* Darker orange shadow */
+    transform: skewX(-15deg) scaleY(1.1);
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+/* Bottom UI */
+.bottom-left {
+    position: absolute;
+    bottom: 3rem;
+    left: 3rem;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.bottom-right {
+    position: absolute;
+    bottom: 3rem;
+    right: 3rem;
+}
+
+.join-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 1.5rem 4rem;
+    font-size: 1.2rem;
+    font-family: 'Inter', sans-serif;
+    text-transform: uppercase;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+.join-btn:hover {
+    transform: scale(1.05);
+    background-color: #1a1a1a;
+}
+
+.arrow {
+    font-size: 1.5rem;
+    display: inline-block;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 0;
+}

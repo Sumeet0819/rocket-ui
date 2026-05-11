@@ -1,0 +1,120 @@
+.sidebar-root {
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 80px;
+  --sidebar-bg: rgba(10, 10, 10, 0.4);
+  --sidebar-glass: rgba(255, 255, 255, 0.03);
+  --sidebar-accent: #ffffff;
+  --sidebar-text: rgba(255, 255, 255, 0.9);
+  --sidebar-text-muted: rgba(255, 255, 255, 0.5);
+
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 2rem);
+  width: var(--sidebar-width);
+  background: var(--sidebar-bg);
+  backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: .5rem;
+  margin: 1rem;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 50;
+}
+
+/* Header */
+.sidebar-header {
+  padding: 1.5rem 1.25rem 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--sidebar-text);
+  transition: transform 0.3s ease;
+}
+
+.sidebar-logo:hover {
+  transform: rotate(15deg);
+}
+
+/* Content */
+.sidebar-content {
+  flex: 1;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+/* Group */
+.sidebar-group {
+  margin-bottom: 2rem;
+}
+
+.sidebar-group-label {
+  padding: 0 1.25rem;
+  margin-bottom: 1rem;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  color: var(--text-secondary);
+  opacity: 0.5;
+}
+
+/* Item */
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 0.85rem 1.5rem;
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+  position: relative;
+  white-space: nowrap;
+}
+
+.sidebar-item:hover {
+  color: var(--sidebar-text);
+  background: var(--sidebar-glass);
+}
+
+.sidebar-item.active {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar-item-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+}
+
+/* Footer */
+.sidebar-footer {
+  padding: 1.5rem;
+  margin-top: auto;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 0px;
+}
+
+.sidebar-content::-webkit-scrollbar {
+  width: 0px;
+}
