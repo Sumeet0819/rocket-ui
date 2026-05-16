@@ -30,10 +30,12 @@ import {
     Scissors,
     CreditCard,
     Wallet,
-    Apple
+    Apple,
+    ArrowBigLeftDash
 } from 'lucide-react';
+import NavBar from '../components/NavBar/NavBar';
 
-type ComponentType = 'FlowText' | 'Sidebar' | 'SelectionCard' | 'PlanCard';
+type ComponentType = 'FlowText' | 'Sidebar' | 'SelectionCard' | 'PlanCard' | 'NavBar';
 
 const Home = () => {
     const [activeComponent, setActiveComponent] = useState<ComponentType>('FlowText');
@@ -204,94 +206,116 @@ const Home = () => {
                         dependencies={['lucide-react']}
                     />
                 );
-            default:
-                return null;
+            case 'NavBar':
+                return (
+                    <ComponentPlayground
+                        title="NavBar"
+                        description="A responsive navigation bar component with branding, search, and notification features."
+                        demo={
+                            <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                                <NavBar />
+                            </div>
+                        }
+                        controls={[]}
+                        code={`import { NavBar } from 'my-ui-library';\n\n<NavBar />`}
+                        dependencies={['lucide-react']}
+                            />
+                        );
+
+                        default:
+                        return null;
         }
     };
 
-    return (
-        <div className="home-container">
-            <header className="top-nav">
-                <div className="nav-brand">
-                    <div className="brand-logo-box">
-                        <Cpu size={18} strokeWidth={2.5} />
-                    </div>
-                    <span className="brand-title">LIBRARY HUB</span>
-                </div>
-                <div className="nav-actions">
-                    <button className="icon-button">
-                        <Search size={16} />
-                    </button>
-                    <button className="icon-button">
-                        <Bell size={16} />
-                        <span className="notification-dot"></span>
-                    </button>
-                </div>
-            </header>
+                        return (
+                        <div className="home-container">
+                            <header className="top-nav">
+                                <div className="nav-brand">
+                                    <div className="brand-logo-box">
+                                        <Cpu size={18} strokeWidth={2.5} />
+                                    </div>
+                                    <span className="brand-title">LIBRARY HUB</span>
+                                </div>
+                                <div className="nav-actions">
+                                    <button className="icon-button">
+                                        <Search size={16} />
+                                    </button>
+                                    <button className="icon-button">
+                                        <Bell size={16} />
+                                        <span className="notification-dot"></span>
+                                    </button>
+                                </div>
+                            </header>
 
-            <div className="main-layout">
-                <Sidebar>
-                    <SidebarContent>
-                        <SidebarGroup label="Animation">
-                            <SidebarItem
-                                icon={<Type size={18} />}
-                                label="FlowText"
-                                active={activeComponent === 'FlowText'}
-                                onClick={() => setActiveComponent('FlowText')}
-                            />
-                        </SidebarGroup>
+                            <div className="main-layout">
+                                <Sidebar>
+                                    <SidebarContent>
+                                        <SidebarGroup label="Animation">
+                                            <SidebarItem
+                                                icon={<Type size={18} />}
+                                                label="FlowText"
+                                                active={activeComponent === 'FlowText'}
+                                                onClick={() => setActiveComponent('FlowText')}
+                                            />
+                                        </SidebarGroup>
 
-                        <SidebarGroup label="Layout">
-                            <SidebarItem
-                                icon={<Square size={18} />}
-                                label="Sidebar"
-                                active={activeComponent === 'Sidebar'}
-                                onClick={() => setActiveComponent('Sidebar')}
-                            />
-                        </SidebarGroup>
+                                        <SidebarGroup label="Layout">
+                                            <SidebarItem
+                                                icon={<Square size={18} />}
+                                                label="Sidebar"
+                                                active={activeComponent === 'Sidebar'}
+                                                onClick={() => setActiveComponent('Sidebar')}
+                                            />
+                                            <SidebarItem
+                                                icon={<ArrowBigLeftDash size={18}/>}
+                                                label="Navbar"
+                                                active={activeComponent === 'NavBar'}
+                                                onClick={() => setActiveComponent('NavBar')}
+                                            />
+                                        </SidebarGroup>
 
-                        <SidebarGroup label="Selection UI">
-                            <SidebarItem
-                                icon={<Palette size={18} />}
-                                label="SelectionCard"
-                                active={activeComponent === 'SelectionCard'}
-                                onClick={() => setActiveComponent('SelectionCard')}
-                            />
-                            <SidebarItem
-                                icon={<CreditCard size={18} />}
-                                label="PlanCard"
-                                active={activeComponent === 'PlanCard'}
-                                onClick={() => setActiveComponent('PlanCard')}
-                            />
-                        </SidebarGroup>
+                                        <SidebarGroup label="Selection UI">
+                                            <SidebarItem
+                                                icon={<Palette size={18} />}
+                                                label="SelectionCard"
+                                                active={activeComponent === 'SelectionCard'}
+                                                onClick={() => setActiveComponent('SelectionCard')}
+                                            />
+                                            <SidebarItem
+                                                icon={<CreditCard size={18} />}
+                                                label="PlanCard"
+                                                active={activeComponent === 'PlanCard'}
+                                                onClick={() => setActiveComponent('PlanCard')}
+                                            />
+                                        </SidebarGroup>
 
-                        <SidebarGroup label="Development">
-                            <SidebarItem
-                                icon={<GitBranchPlus size={18} />}
-                                label="GitHub"
-                                href="https://github.com"
-                            />
-                        </SidebarGroup>
-                    </SidebarContent>
-                </Sidebar>
+                                        <SidebarGroup label="Development">
+                                            <SidebarItem
+                                                icon={<GitBranchPlus size={18} />}
+                                                label="GitHub"
+                                                href="https://github.com"
+                                            />
+                                        </SidebarGroup>
+                                    </SidebarContent>
+                                </Sidebar>
 
-                <main className="content-pane">
-                    <div className="page-header">
-                        <h1 className="page-title">{activeComponent}</h1>
-                        <p className="page-description">
-                            {activeComponent === 'FlowText' && "A premium animated text component that reacts to mouse position with smooth scaling effects."}
-                            {activeComponent === 'Sidebar' && "A highly customizable, compound sidebar component with support for collapsing, grouping, and active states."}
-                            {activeComponent === 'SelectionCard' && "Modern, interactive selection cards for forms and settings."}
-                            {activeComponent === 'PlanCard' && "Pricing and subscription cards with popular/selected state highlights."}
-                        </p>
-                    </div>
-                    <div className="component-showcase-wrapper">
-                        {renderContent()}
-                    </div>
-                </main>
-            </div>
-        </div>
-    );
+                                <main className="content-pane">
+                                    <div className="page-header">
+                                        <h1 className="page-title">{activeComponent}</h1>
+                                        <p className="page-description">
+                                            {activeComponent === 'FlowText' && "A premium animated text component that reacts to mouse position with smooth scaling effects."}
+                                            {activeComponent === 'Sidebar' && "A highly customizable, compound sidebar component with support for collapsing, grouping, and active states."}
+                                            {activeComponent === 'SelectionCard' && "Modern, interactive selection cards for forms and settings."}
+                                            {activeComponent === 'PlanCard' && "Pricing and subscription cards with popular/selected state highlights."}
+                                        </p>
+                                    </div>
+                                    <div className="component-showcase-wrapper">
+                                        {renderContent()}
+                                    </div>
+                                </main>
+                            </div>
+                        </div>
+                        );
 };
 
-export default Home;
+                        export default Home;
