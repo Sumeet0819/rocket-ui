@@ -30,12 +30,12 @@
   width: 32px;
   height: 32px;
   border-radius: 8px;
-  background: linear-gradient(135deg, #F4793A 0%, #E0631F 100%);
+  background: linear-gradient(135deg, var(--color-brand-accent) 0%, var(--color-brand-accent-glow) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  box-shadow: 0 4px 12px rgba(244, 121, 58, 0.15);
+  box-shadow: 0 4px 12px rgba(var(--color-brand-accent-rgb), 0.15);
 }
 
 .brand-title {
@@ -77,7 +77,7 @@
   right: 6px;
   width: 6px;
   height: 6px;
-  background: #F4793A;
+  background: var(--color-brand-accent);
   border-radius: 50%;
   border: 2px solid var(--bg-app);
 }
@@ -120,4 +120,479 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+
+/* Landing View Showcase & Grid Styles */
+.landing-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 4rem 2rem;
+  overflow-y: auto;
+  align-items: center;
+}
+
+.hero-section {
+  text-align: center;
+  max-width: 800px;
+  margin-bottom: 1rem;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 900;
+  letter-spacing: -0.04em;
+  background: linear-gradient(135deg, #fff 0%, #a1a1a1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 1.2rem;
+}
+
+.hero-tagline {
+  font-size: 1.15rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.components-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  width: 100%;
+  margin-top: 3.5rem;
+  padding-bottom: 4rem;
+}
+
+.micro-card {
+  background: #0E0E10;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  border-radius: 28px;
+  padding: 14px 14px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.micro-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(var(--color-brand-accent-rgb), 0.25), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.micro-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(var(--color-brand-accent-rgb), 0.25);
+  background: #131317;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.5), 0 0 1px 1px rgba(var(--color-brand-accent-rgb), 0.1);
+}
+
+.micro-card:hover::before {
+  opacity: 1;
+}
+
+.micro-preview-area {
+  height: 220px;
+  border-radius: 22px;
+  background: #050507;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 4px 16px rgba(0, 0, 0, 0.6);
+}
+
+.micro-card-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 14px;
+  padding: 0 8px;
+}
+
+.micro-card-title {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #fff;
+  margin-bottom: 0;
+  letter-spacing: -0.015em;
+  transition: color 0.25s ease;
+}
+
+.micro-card:hover .micro-card-title {
+  color: #fff;
+}
+
+.micro-card-tag {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  opacity: 0.8;
+  letter-spacing: -0.01em;
+  transition: all 0.25s ease;
+}
+
+.micro-card:hover .micro-card-tag {
+  color: var(--color-brand-accent);
+  opacity: 1;
+}
+
+.back-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  border-radius: 30px;
+  margin-bottom: 2rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  width: fit-content;
+}
+
+.back-button:hover {
+  color: #fff;
+  background: rgba(var(--color-brand-accent-rgb), 0.15);
+  border-color: var(--color-brand-accent);
+  transform: translateX(-4px);
+  box-shadow: 0 4px 12px rgba(var(--color-brand-accent-rgb), 0.1);
+}
+
+/* Micro Preview Mock Elements CSS */
+.micro-flowtext {
+  font-family: 'Poppins', sans-serif;
+  font-weight: 900;
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(var(--color-brand-accent-rgb), 0.6);
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+}
+
+.micro-card:hover .micro-flowtext {
+  transform: scale(1.15);
+  text-shadow: 0 0 20px rgba(var(--color-brand-accent-rgb), 0.9);
+}
+
+.micro-sidebar-mock {
+  width: 140px;
+  height: 100px;
+  border: 1px dashed rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  display: flex;
+  background: rgba(255, 255, 255, 0.01);
+  overflow: hidden;
+}
+
+.micro-sidebar-left {
+  width: 32px;
+  background: rgba(255, 255, 255, 0.05);
+  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px 4px;
+}
+
+.micro-sidebar-dot {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+.micro-sidebar-dot.active {
+  background: var(--color-brand-accent);
+}
+
+.micro-sidebar-right {
+  flex: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.micro-sidebar-line {
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 2px;
+  width: 80%;
+}
+
+.micro-selection-card {
+  width: 160px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.micro-card:hover .micro-selection-card {
+  border-color: var(--color-brand-accent);
+  background: rgba(var(--color-brand-accent-rgb), 0.04);
+}
+
+.micro-selection-indicator {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.micro-card:hover .micro-selection-indicator {
+  border-color: var(--color-brand-accent);
+}
+
+.micro-card:hover .micro-selection-indicator::after {
+  content: '';
+  position: absolute;
+  inset: 2.5px;
+  background: var(--color-brand-accent);
+  border-radius: 50%;
+}
+
+.micro-plancard {
+  width: 180px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  overflow: hidden;
+  position: relative;
+}
+
+.micro-plancard-badge {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: var(--color-brand-accent);
+  color: #fff;
+  font-size: 8px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.micro-plancard-content {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.micro-plancard-name {
+  font-size: 11px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.micro-plancard-price {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-brand-accent);
+}
+
+.micro-navbar-mock {
+  width: 180px;
+  height: 28px;
+  background: #000;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s ease;
+}
+
+.micro-navbar-dot {
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+.micro-navbar-pill {
+  width: 28px;
+  height: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.micro-card:hover .micro-navbar-pill {
+  background: var(--color-brand-accent);
+}
+
+/* Immersive Full Scale Viewport Detail UI */
+.detail-viewport {
+  position: fixed;
+  inset: 0;
+  background: #09090B;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.viewport-top-bar {
+  position: absolute;
+  top: 24px;
+  left: 24px;
+  right: 24px;
+  height: 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1100;
+  pointer-events: none;
+}
+
+.viewport-top-bar * {
+  pointer-events: auto;
+}
+
+.viewport-action-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  background: rgba(20, 20, 25, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  color: #A1A1AA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  backdrop-filter: blur(16px);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.viewport-action-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.viewport-action-pill {
+  display: flex;
+  background: rgba(20, 20, 25, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 14px;
+  padding: 4px;
+  gap: 2px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.viewport-pill-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  background: transparent;
+  border: none;
+  color: #A1A1AA;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.viewport-pill-btn:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.viewport-pill-btn.active {
+  color: var(--color-brand-accent);
+  background: rgba(var(--color-brand-accent-rgb), 0.1);
+}
+
+.viewport-canvas {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 24px 24px 24px;
+  overflow: hidden;
+}
+
+/* Code Overlay Card */
+.code-overlay-card {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  width: 480px;
+  max-height: 400px;
+  background: rgba(10, 10, 12, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(20px);
+  z-index: 1200;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.code-overlay-header {
+  padding: 14px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #E4E4E7;
+}
+
+.close-code-btn {
+  background: transparent;
+  border: none;
+  color: #71717A;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.2s ease;
+}
+
+.close-code-btn:hover {
+  color: #fff;
+}
+
+.code-overlay-pre {
+  padding: 18px;
+  overflow: auto;
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #D1D5DB;
+  margin: 0;
 }

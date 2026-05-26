@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 import './MenuPanel.css'
 
 interface MenuPanelProps {
@@ -16,30 +18,83 @@ const MenuPanel: React.FC<MenuPanelProps> = ({
   onToggleDarkMode,
   percentage,
 }) => {
-  if (!isOpen) return null
+  const overlayRef = useRef<HTMLDivElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  useGSAP(
+    () => {
+      if (isOpen) {
+        // --- ENTER ANIMATION ---
+        // 1. Overlay fade-in
+        gsap.to(overlayRef.current, {
+          autoAlpha: 1,
+          duration: 0.4,
+          ease: 'power2.out',
+        })
+
+        // 2. Panel grow downwards (with custom springy elasticity)
+        gsap.fromTo(
+          panelRef.current,
+          { scaleY: 0, opacity: 0, transformOrigin: 'center top' },
+          {
+            scaleY: 1,
+            opacity: 1,
+            duration: 1.5,
+            ease: 'elastic.out(1, 0.75)',
+            clearProps: 'transform,opacity',
+          }
+        )
+
+        // 3. Stagger section titles and links (with smooth overshoot ease)
+        const staggerItems = gsap.utils.toArray<HTMLElement>(
+          '.menu-section-label, .menu-link, .menu-divider'
+        )
+        gsap.fromTo(
+          staggerItems,
+          { y: 15, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            stagger: 0.03,
+            duration: 0.6,
+            ease: 'back.out(1.5)',
+            delay: 0.15,
+            clearProps: 'transform,opacity',
+          }
+        )
+      } else {
+        // --- EXIT ANIMATION ---
+        // 1. Panel collapse upwards
+        gsap.to(panelRef.current, {
+          scaleY: 0,
+          opacity: 0,
+          transformOrigin: 'center top',
+          duration: 0.35,
+          ease: 'power2.inOut',
+        })
+
+        // 2. Overlay fade-out
+        gsap.to(overlayRef.current, {
+          autoAlpha: 0,
+          duration: 0.35,
+          ease: 'power2.inOut',
+        })
+      }
+    },
+    { dependencies: [isOpen], scope: overlayRef }
+  )
 
   return (
-    <div className="menu-overlay" onClick={onClose}>
-      <div className="menu-panel" onClick={(e) => e.stopPropagation()}>
-        {/* Header */}
-        <div className="menu-header">
-          <button className="close-button" onClick={onClose} aria-label="Close menu">
-            <svg viewBox="0 0 24 24" fill="currentColor">
-              <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z" />
-            </svg>
-          </button>
-          <button
-            className={`theme-toggle ${isDarkMode ? 'dark' : ''}`}
-            onClick={onToggleDarkMode}
-            aria-label="Toggle dark mode"
-          >
-            <svg className="theme-icon" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-            </svg>
-          </button>
-          <span className="percentage">{percentage}</span>
-        </div>
-
+    <div
+      className={`menu-overlay ${isDarkMode ? 'dark' : ''}`}
+      ref={overlayRef}
+      onClick={onClose}
+    >
+      <div
+        className={`menu-panel ${isDarkMode ? 'dark' : ''}`}
+        ref={panelRef}
+        onClick={(e) => e.stopPropagation()}
+      >
         {/* Content */}
         <div className="menu-content">
           {/* Menu Section */}

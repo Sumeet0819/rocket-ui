@@ -25,10 +25,10 @@ interface FlowTextProps {
  */
 const FlowText: React.FC<FlowTextProps> = ({
     text = "FOLLOW ART",
-    bgColor = "#f27a3d",
+    bgColor = "transparent",
     smoothness = 0.5,
     intensity = 0.5,
-    shadowColor = "#a34b22",
+    shadowColor = "#7C3AED",
     position = "center",
     className = ""
 }) => {
@@ -41,30 +41,44 @@ const FlowText: React.FC<FlowTextProps> = ({
     useGSAP(() => {
         if (!containerRef.current) return;
 
-        const chars = gsap.utils.selector(containerRef.current)(".char");
+        const container = containerRef.current;
+        const chars = gsap.utils.selector(container)(".char");
+
+        // Cache boundingClientRect to completely prevent layout thrashing
+        let bounds = container.getBoundingClientRect();
+        
+        const updateBounds = () => {
+            if (container) {
+                bounds = container.getBoundingClientRect();
+            }
+        };
+
+        const handleMouseEnter = () => {
+            updateBounds();
+        };
 
         const handleMouseMove = (e: MouseEvent) => {
             const { clientX } = e;
-            const { width, left } = containerRef.current!.getBoundingClientRect();
+            const { width, left } = bounds;
+
+            if (width === 0) return;
 
             const mousePos = ((clientX - left) / width - 0.5) * 2;
 
             chars.forEach((char, index) => {
-                const charPos = (index / (chars.length - 1) - 0.5) * 2;
+                // Safeguard against division by zero if text has only one character
+                const charPos = chars.length > 1 ? (index / (chars.length - 1) - 0.5) * 2 : 0;
 
-                let scaleFactor = 1;
-
-                if (mousePos > 0.1 && charPos > 0) {
-                    scaleFactor = 1 + (mousePos * charPos * scaleMultiplier);
-                } else if (mousePos < -0.1 && charPos < 0) {
-                    scaleFactor = 1 + (Math.abs(mousePos) * Math.abs(charPos) * scaleMultiplier);
-                }
+                // Smooth continuous scaling factor using product to avoid abrupt jump boundaries
+                const product = mousePos * charPos;
+                const scaleFactor = product > 0 ? 1 + (product * scaleMultiplier) : 1;
 
                 gsap.to(char, {
                     scaleY: scaleFactor,
                     duration: duration,
                     ease: "power4.out",
-                    overwrite: true
+                    overwrite: "auto",
+                    force3D: true
                 });
             });
         };
@@ -74,17 +88,21 @@ const FlowText: React.FC<FlowTextProps> = ({
                 scaleY: 1,
                 duration: duration * 2,
                 ease: "elastic.out(1, 0.3)",
-                overwrite: true
+                overwrite: "auto",
+                force3D: true
             });
         };
 
-        const container = containerRef.current;
+        container.addEventListener("mouseenter", handleMouseEnter);
         container.addEventListener("mousemove", handleMouseMove as any);
         container.addEventListener("mouseleave", handleMouseLeave);
+        window.addEventListener("resize", updateBounds);
 
         return () => {
+            container.removeEventListener("mouseenter", handleMouseEnter);
             container.removeEventListener("mousemove", handleMouseMove as any);
             container.removeEventListener("mouseleave", handleMouseLeave);
+            window.removeEventListener("resize", updateBounds);
         };
     }, { scope: containerRef, dependencies: [duration, scaleMultiplier] });
 

@@ -9,8 +9,10 @@
     --color-brand-gray-700: #27272A;
     --color-brand-gray-400: #A1A1AA;
     --color-brand-white: #FFFFFF;
-    --color-brand-accent: #F4793A;
-    --color-brand-accent-rgb: 244, 121, 58;
+    --color-brand-accent: #7C3AED; /* Rocket UI Violet Accent */
+    --color-brand-accent-rgb: 124, 58, 237;
+    --color-brand-accent-glow: #9D4EDD;
+    --color-brand-accent-secondary: #FF9F1C; /* Rocket Window Orange Highlight */
 
     /* Theme: Dark Default (Full Dark) */
     --bg-app: var(--color-brand-black);

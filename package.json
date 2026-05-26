@@ -1,19 +1,19 @@
 {
-  "name": "my-ui-library",
+  "name": "rocket-ui",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "files": [
     "dist"
   ],
-  "main": "./dist/my-ui-library.umd.js",
-  "module": "./dist/my-ui-library.es.js",
+  "main": "./dist/rocket-ui.umd.js",
+  "module": "./dist/rocket-ui.es.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/my-ui-library.es.js",
-      "require": "./dist/my-ui-library.umd.js"
+      "import": "./dist/rocket-ui.es.js",
+      "require": "./dist/rocket-ui.umd.js"
     }
   },
   "scripts": {
